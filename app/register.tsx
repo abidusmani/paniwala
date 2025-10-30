@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import AuthLayout from '@/components/AuthLayout';
+import StyledButton from '@/components/StyledButton';
+import StyledInput from '@/components/StyledInput';
 import {
   View,
   Text,

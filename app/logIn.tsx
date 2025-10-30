@@ -16,6 +16,9 @@ import { Link, useRouter } from 'expo-router';
 import { Mail, Lock, LucideIcon } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AuthLayout from '@/components/AuthLayout';
+import StyledButton from '@/components/StyledButton';
+import StyledInput from '@/components/StyledInput';
 
 // --- Re-usable Components ---
 // We are placing these components in the same file to resolve the import errors
