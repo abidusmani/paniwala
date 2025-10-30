@@ -1,127 +1,18 @@
+// abidusmani/paniwala/paniwala-ea6dbe8b62d8c4d0cd26a9067d013f7cc8ea3a24/app/register.tsx
 import React, { useState } from 'react';
-import AuthLayout from '@/components/AuthLayout';
-import StyledButton from '@/components/StyledButton';
-import StyledInput from '@/components/StyledInput';
 import {
   View,
   Text,
   TouchableOpacity,
   Alert,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  TextInput,
-  ActivityIndicator,
-  TextInputProps,
-  TouchableOpacityProps,
 } from 'react-native';
 import { Link, useRouter } from 'expo-router';
-import { User, Mail, Lock, LucideIcon } from 'lucide-react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { User, Mail, Lock } from 'lucide-react-native';
 
-// --- Re-usable Components ---
-// We are placing these components in the same file to resolve the import errors
-// in the preview environment. In your actual project, you should keep them
-// in separate files inside your 'components' directory as I originally suggested.
-
-// --- StyledButton Component ---
-interface StyledButtonProps extends TouchableOpacityProps {
-  title: string;
-  loading?: boolean;
-}
-
-function StyledButton({
-  title,
-  onPress,
-  loading,
-  className,
-  ...props
-}: StyledButtonProps) {
-  const disabled = loading || props.disabled;
-
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      disabled={disabled}
-      className={`w-full bg-indigo-600 rounded-xl p-4 flex-row justify-center items-center shadow-md ${
-        disabled ? 'opacity-60' : ''
-      } ${className}`}
-      {...props}
-    >
-      {loading ? (
-        <ActivityIndicator color="#ffffff" />
-      ) : (
-        <Text className="text-white text-base font-bold text-center">
-          {title}
-        </Text>
-      )}
-    </TouchableOpacity>
-  );
-}
-
-// --- StyledInput Component ---
-interface StyledInputProps extends TextInputProps {
-  label: string;
-  Icon: LucideIcon; // Type for lucide icon component
-}
-
-function StyledInput({
-  label,
-  Icon,
-  ...props
-}: StyledInputProps) {
-  return (
-    <View className="w-full mb-4">
-      <Text className="text-sm font-medium text-gray-700 mb-2 ml-1">
-        {label}
-      </Text>
-      <View className="flex-row items-center bg-gray-100 rounded-xl p-4">
-        <Icon color="#6b7280" size={20} />
-        <TextInput
-          className="flex-1 ml-3 text-base text-gray-900"
-          placeholderTextColor="#9ca3af"
-          {...props}
-        />
-      </View>
-    </View>
-  );
-}
-
-// --- AuthLayout Component ---
-type AuthLayoutProps = {
-  title: string;
-  children: React.ReactNode;
-};
-
-function AuthLayout({ title, children }: AuthLayoutProps) {
-  return (
-    <LinearGradient
-      colors={['#f3e8ff', '#e0c3fc']} // Light purple gradient
-      className="flex-1"
-    >
-      <SafeAreaView className="flex-1">
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          className="flex-1"
-        >
-          <ScrollView
-            contentContainerClassName="flex-grow justify-center p-6"
-            keyboardShouldPersistTaps="handled"
-          >
-            <View className="bg-white rounded-2xl shadow-xl p-8 items-center">
-              {/* Logo or Icon can go here */}
-              <Text className="text-3xl font-bold text-gray-900 mb-6">
-                {title}
-              </Text>
-              {children}
-            </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </LinearGradient>
-  );
-}
+// Import the re-usable components
+import AuthLayout from '@/components/AuthLayout';
+import StyledButton from '@/components/StyledButton';
+import StyledInput from '@/components/StyledInput';
 
 // --- Main Register Screen ---
 export default function RegisterScreen() {
@@ -149,7 +40,6 @@ export default function RegisterScreen() {
       setLoading(false);
       console.log('Registering with:', fullName, email, password);
       // On success, navigate to the main app
-      // Replace '/(tabs)' with your main authenticated route
       router.replace('/(tabs)');
     }, 2000);
   };
@@ -195,6 +85,8 @@ export default function RegisterScreen() {
           onChangeText={setConfirmPassword}
           secureTextEntry
           Icon={Lock}
+          // Added small margin before the button
+          className="mb-2"
         />
 
         {/* Register Button */}
@@ -202,15 +94,19 @@ export default function RegisterScreen() {
           title="Create Account"
           onPress={onRegister}
           loading={loading}
-          className="mt-4"
+          // Added more top margin
+          className="mt-6"
         />
 
         {/* Login Link */}
-        <View className="flex-row justify-center mt-6">
+        {/* Added more top margin for breathing room */}
+        <View className="flex-row justify-center mt-8">
           <Text className="text-gray-600">Already have an account? </Text>
-          <Link href="/login" asChild>
+          <Link href="/logIn" asChild>
             <TouchableOpacity>
-              <Text className="font-bold text-indigo-600">Log In</Text>
+              <Text className="font-bold text-indigo-600 active:text-indigo-700">
+                Log In
+              </Text>
             </TouchableOpacity>
           </Link>
         </View>
@@ -218,4 +114,3 @@ export default function RegisterScreen() {
     </AuthLayout>
   );
 }
-

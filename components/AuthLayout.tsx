@@ -1,21 +1,15 @@
-import React from 'react';
+// abidusmani/paniwala/paniwala-ea6dbe8b62d8c4d0cd26a9067d013f7cc8ea3a24/components/AuthLayout.tsx
 import {
-  View,
-  Text,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
+  SafeAreaView,
   ScrollView,
-  // --- Adding other common imports as a potential fix for the preview bundler ---
-  TouchableOpacity,
-  Alert,
-  TextInput,
-  ActivityIndicator,
+  Text,
+  TouchableWithoutFeedback,
+  View,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { SafeAreaView } from 'react-native-safe-area-context';
-// --- Also adding other top-level package imports ---
-import 'expo-router';
-import 'lucide-react-native';
+import React from 'react';
 
 type AuthLayoutProps = {
   title: string;
@@ -24,30 +18,28 @@ type AuthLayoutProps = {
 
 export default function AuthLayout({ title, children }: AuthLayoutProps) {
   return (
-    <LinearGradient
-      colors={['#f3e8ff', '#e0c3fc']} // Light purple gradient
-      className="flex-1"
-    >
-      <SafeAreaView className="flex-1">
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          className="flex-1"
-        >
-          <ScrollView
-            contentContainerClassName="flex-grow justify-center p-6"
-            keyboardShouldPersistTaps="handled"
-          >
-            <View className="bg-white rounded-2xl shadow-xl p-8 items-center">
-              {/* Logo or Icon can go here */}
-              <Text className="text-3xl font-bold text-gray-900 mb-6">
+    <SafeAreaView className="flex-1 bg-white">
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        className="flex-1"
+      >
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            {/* Changed p-4 to p-6 for more space */}
+            <View className="flex-1 items-center justify-center p-6">
+              {/* You can add a Logo here in the future
+                <Image source={require('@/assets/images/logo.png')} className="w-32 h-32 mb-4" /> 
+              */}
+
+              {/* Made title larger, bolder, and added more margin */}
+              <Text className="text-3xl font-bold text-gray-900 mb-8 text-center">
                 {title}
               </Text>
               {children}
             </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </LinearGradient>
+          </TouchableWithoutFeedback>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
-
