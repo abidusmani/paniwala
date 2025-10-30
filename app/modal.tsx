@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Link } from 'expo-router';
 import { StyleSheet } from 'react-native';
 
@@ -5,13 +6,15 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 
 export default function ModalScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <ThemedText type="title">This is a modal</ThemedText>
-      <Link href="/" dismissTo style={styles.link}>
-        <ThemedText type="link">Go to home screen</ThemedText>
-      </Link>
-    </ThemedView>
+  return React.createElement(
+    ThemedView,
+    { style: styles.container },
+    React.createElement(ThemedText, { type: 'title' }, 'this is modal'),
+    React.createElement(
+      Link,
+      { href: '/', dismissTo: true, style: styles.link },
+      React.createElement(ThemedText, { type: 'link' }, 'Go to home screen')
+    )
   );
 }
 
